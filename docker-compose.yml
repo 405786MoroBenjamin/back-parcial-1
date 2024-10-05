@@ -1,0 +1,7 @@
+services:
+  user-service:
+    container_name: user-service_app
+    image: tup-user-service-app:1.0.0
+    build: .
+    ports:
+      - "8080:8080"
