@@ -140,6 +140,14 @@ class CountryServiceTest {
 
     @Test
     void getAllForLenguage() {
+        when(restTemplate.getForObject("https://restcountries.com/v3.1/all", List.class)).thenReturn(responseRest);
+
+        List<CountryGetDto> result = sut.getAllForLenguage("Spanish");
+
+        assertEquals(2, result.size());
+        assertEquals("Argentina", result.get(0).getName());
+        assertEquals("Uruguay", result.get(1).getName());
+        verify(restTemplate).getForObject("https://restcountries.com/v3.1/all", List.class);
     }
 
     @Test

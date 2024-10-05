@@ -73,13 +73,14 @@ public class CountryService {
                 // todo: revisar el filtro con map
                 List<Country> countriesFiltered = new ArrayList<>();
                 for(Country country : countries){
-                        if(country.getLanguages() != null && country.getLanguages().get(0).contains(lenguage)){
-                                System.out.println("lenguage: " + lenguage);
-                                countriesFiltered.add(country);
+                        if(country.getLanguages() != null){
+                                if(country.getLanguages().containsValue(lenguage)){
+                                        countriesFiltered.add(country);
+                                }
                         }
                 }
                 List<CountryGetDto> countriesDto = new ArrayList<>();
-                for(Country country : countries){
+                for(Country country : countriesFiltered){
                         countriesDto.add(mapToDTO(country));
                 }
                 return countriesDto;
@@ -87,11 +88,13 @@ public class CountryService {
 
         public CountryGetDto getMostBorders() {
                 List<Country> countries = getAllCountries();
-                // todo: se rompe de la nada no se xq
                 Country countryMax = new Country();
+                countryMax.setBorders(new ArrayList<>());
                 for(Country country : countries){
-                        if(country.getBorders().size() > countryMax.getBorders().size()){
-                                countryMax = country;
+                        if(country.getBorders() != null){
+                                if(country.getBorders().size() > countryMax.getBorders().size()){
+                                        countryMax = country;
+                                }
                         }
                 }
 
